@@ -19,9 +19,10 @@ def check(board):
             return 1
         if s == 'OOO' or t == 'OOO':
             return -1
-    s, t = '', board[0][2] + board[1][1] + board[2][0]
+    s, t = '', ''
     for i in range(3):
         s+=board[i][i]
+        t+=board[i][2-i]
     if s == 'XXX'or t == 'XXX':
         return 1
     if s == 'OOO' or t == 'OOO':
