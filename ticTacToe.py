@@ -19,10 +19,9 @@ def check(board):
             return 1
         if s == 'OOO' or t == 'OOO':
             return -1
-    s, t = '', ''
+    s, t = '', board[0][2] + board[1][1] + board[2][0]
     for i in range(3):
         s+=board[i][i]
-        t+=board[2-i][2-i]
     if s == 'XXX'or t == 'XXX':
         return 1
     if s == 'OOO' or t == 'OOO':
@@ -46,7 +45,7 @@ def is_valid(x, y):
     return True
 
 def minmax(board, flag, level):
-    if end_state(board) or check(board) != 0: # Base Case
+    if end_state(board) == True or check(board) != 0: # Base Case
         return check(board)
     if flag == 0:
         rval = 10
@@ -62,7 +61,6 @@ def minmax(board, flag, level):
             for k,v in d.items():
                 if v == rval:
                     board[k[0]][k[1]] = "O"
-                    print('rval is', rval)
                     break
         return rval
     else:
@@ -86,7 +84,13 @@ if __name__ == '__main__':
             x,y = map(int,input().split())
         board[x-1][y-1] = 'X'
         minmax(board,0,0)
+        if check(board) == -1:
+            print('I won! Nothing new for me!')
+            break
+        elif check(board) == 1:
+            print('Impossible.')
+        elif end_state(board) == 1:
+            print('Draw')
+            break
+
         
-
-
-
